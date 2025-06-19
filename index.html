@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>TypeBeatStockholm</title>
   <link rel="stylesheet" href="style.css" />
-  <!-- Replace YOUR_PAYPAL_CLIENT_ID below with your actual PayPal Client ID -->
+  <!-- PayPal SDK med din client-id -->
   <script src="https://www.paypal.com/sdk/js?client-id=AYN21Epsv48AFBd9Znugwlbd_s3Ukuzt8LqQCUvmzRADfzjCWGl_dmqhzUs-Jy8vtnJ5M-Win2Lapq2W&currency=USD"></script>
 </head>
 <body>
@@ -13,9 +13,8 @@
 
   <script>
     const beats = [
-      { title: "Geez", file: "beats/geez.wav", price: 15 },
-      { title: "City Lights", file: "city-lights.mp3", price: 20 },
-      // Add more beats here as needed
+      { title: "Geez", file: "beats/geez.wav", price: 15, mime: "audio/wav" },
+      { title: "City Lights", file: "beats/city-lights.mp3", price: 20, mime: "audio/mpeg" }
     ];
 
     const beatList = document.querySelector('.beat-list');
@@ -28,7 +27,7 @@
       div.innerHTML = `
         <h2>${beat.title}</h2>
         <audio controls class="audio-player">
-          <source src="${beat.file}" type="audio/wav" />
+          <source src="${beat.file}" type="${beat.mime}" />
           Your browser does not support the audio element.
         </audio>
         <div id="paypal-button-container-${index}"></div>
@@ -40,9 +39,7 @@
         createOrder: function(data, actions) {
           return actions.order.create({
             purchase_units: [{
-              amount: {
-                value: beat.price.toString()
-              },
+              amount: { value: beat.price.toString() },
               description: beat.title
             }]
           });
@@ -50,14 +47,12 @@
         onApprove: function(data, actions) {
           return actions.order.capture().then(function(details) {
             alert('Thanks for your purchase, ' + details.payer.name.given_name + '!');
-            // Redirect to thank you page with beat name as query param
             window.location.href = 'thankyou.html?beat=' + encodeURIComponent(beat.title);
           });
         }
       }).render(`#paypal-button-container-${index}`);
     });
 
-    // Pause other audio when one plays
     const players = document.querySelectorAll('.audio-player');
     players.forEach(player => {
       player.addEventListener('play', () => {
@@ -67,5 +62,9 @@
       });
     });
   </script>
+  <footer style="text-align:center; padding:20px; color:#888;">
+  <a href="terms.html" style="color:#00ffff; text-decoration:none;">Terms of Service</a>
+</footer>
+
 </body>
 </html>
