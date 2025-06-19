@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Thank You for Your Purchase!</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: #1c1c1e; /* Apple dark gray/black */
+      color: white;
+      font-family: 'Orbitron', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    main {
+      background: #2c2c2e; /* Mörkare grå */
+      padding: 30px 40px;
+      border-radius: 20px;
+      max-width: 400px;
+      text-align: center;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 25px;
+      font-weight: 400;
+    }
+
+    a#download-link {
+      display: inline-block;
+      background: white;
+      color: black;
+      padding: 12px 25px;
+      font-weight: 600;
+      border-radius: 15px;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    a#download-link:hover {
+      background: #dddddd;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Thank You for Your Purchase!</h1>
+    <p>Your payment has been confirmed.</p>
+    <p>Click the link below to download your beat:</p>
+    <a id="download-link" href="#" download>Download Beat</a>
+  </main>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const beat = urlParams.get('beat');
+
+    const downloads = {
+      "Geez": "beats/geez.wav",
+      "City Lights": "beats/city-lights.mp3",
+      "New Beat": "beats/new-beat.mp3"
+      // Add more beats and files here as needed
+    };
+
+    const downloadLink = document.getElementById('download-link');
+    if (beat && downloads[beat]) {
+      downloadLink.href = downloads[beat];
+      downloadLink.textContent = `Download "${beat}"`;
+    } else {
+      downloadLink.textContent = "Download link not available.";
+      downloadLink.removeAttribute('href');
+    }
+  </script>
+</body>
+</html>
