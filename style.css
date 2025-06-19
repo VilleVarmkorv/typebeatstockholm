@@ -2,56 +2,65 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Orbitron', sans-serif;
-  background: linear-gradient(135deg, #2b0057, #8f00ff, #2b0057);
-  background-size: 400% 400%;
-  animation: psychedelic 10s ease infinite;
+  background-color: #1c1c1e;  /* Apple-mörk svart/grå */
   color: white;
 }
 
-@keyframes psychedelic {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
 .beat-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
   padding: 40px;
-  max-width: 800px;
+  max-width: 1000px;
   margin: auto;
 }
 
 .beat {
-  margin-bottom: 40px;
   padding: 20px;
-  background: rgba(0, 0, 0, 0.4);
-  border: 2px solid #ff00ff;
-  border-radius: 16px;
-  box-shadow: 0 0 20px #ff00ff;
+  background: rgba(255 255 255 / 0.1);
+  border: none;
+  border-radius: 24px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.beat:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.25);
 }
 
 h2 {
-  font-size: 2rem;
-  text-shadow: 0 0 10px #ff00ff;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 12px;
+  text-shadow: none;
 }
 
 .audio-player {
   width: 100%;
-  margin-top: 10px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  outline: none;
 }
 
 .buy-button {
-  margin-top: 10px;
-  background: #ff00ff;
-  color: black;
+  margin-top: auto;
+  background: white;
+  color: #1c1c1e;
   border: none;
-  padding: 10px 20px;
-  font-weight: bold;
-  border-radius: 8px;
+  padding: 12px 24px;
+  font-weight: 600;
+  border-radius: 24px;
   cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 12px rgba(28, 28, 30, 0.3);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .buy-button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 10px #fff;
+  background-color: #e0e0e5;
+  box-shadow: 0 8px 24px rgba(28, 28, 30, 0.5);
 }
